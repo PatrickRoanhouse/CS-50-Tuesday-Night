@@ -145,7 +145,7 @@ void menu(float data[], float output[], int *count){
 	int choice;
 	
 	printf("*------------------------------------------------------------*\n");
-	printf("|    Mini Stats Package                Data Entries = %3d    |\n",count2);
+	printf("|    Mini Stats Package                Data Entries = %3d    |\n",count2+1);
 	printf("*------------------------------------------------------------*\n");
 	printf("*                                                            *\n");
 	printf("*    Enter the following number to:                          *\n");
@@ -178,7 +178,7 @@ void displaydata(float data[], float output[], int *count1){
 	printf("Data Items:\n\n");
 	func_printdata(data, &count2);
 	printf("\n\n");
-	printf("Number of data items : %d\n\n",count2);//data_item_number);
+	printf("Number of data items : %d\n\n",count2+1);//data_item_number);
 	printf("Largest data item    : %.2f\n\n",output[0]); //data_largest);
 	printf("Smallest data item   : %.2f\n\n",output[1]); //data_smallest);
 	printf("Mean                 : %.2f\n\n",output[2]); //data_mean);
@@ -249,14 +249,13 @@ void func_printdata(float data[], int *count2){
 	
 	int count3 = *count2;
 	int i;
-	for(i=0 ; i < count3 ; i++){
-		printf("======>>>%7.2f\n",a[i]);
+	for(i=0 ; i < 10 ; i++){
+		printf("%.2f ",data[i]);
 	}
 }
 	
-}
-void processdata ( float data[], float output[], int *count1)
-{
+
+void processdata ( float data[], float output[], int *count1){
 	
 	int count2 = *count1;
 	
