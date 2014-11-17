@@ -226,7 +226,7 @@ void enterdata(float data[], int *count1){
 			for(i = count2 ; i < MAX; i++){
 				printf("Item %d of %d: ",i,MAX);
 				scanf("%f",&data[i]);
-				count2 = i;
+				
 			}
 			
 		}	
@@ -248,6 +248,11 @@ void enterdata(float data[], int *count1){
 void func_printdata(float data[], int *count2){
 	
 	int count3 = *count2;
+	int i;
+	for(i=0 ; i < count3 ; i++){
+		printf("======>>>%7.2f\n",a[i]);
+	}
+}
 	
 }
 void processdata ( float data[], float output[], int *count1)
