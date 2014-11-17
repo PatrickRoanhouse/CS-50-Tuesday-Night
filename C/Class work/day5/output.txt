@@ -1,0 +1,4 @@
+Enter a number, stop by pressing CTRL+Z:
+the sum is 468, average is 42.545455
+
+Press any key to continue . . . 
