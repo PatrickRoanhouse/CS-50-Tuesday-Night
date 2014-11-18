@@ -178,7 +178,7 @@ void displaydata(float data[], float output[], int *count1){
 	printf("Data Items:\n\n");
 	func_printdata(data, &count2);
 	printf("\n\n");
-	printf("Number of data items : %d\n\n",count2+1);//data_item_number);
+	printf("Number of data items : %d\n\n",count2);//data_item_number);
 	printf("Largest data item    : %.2f\n\n",output[0]); //data_largest);
 	printf("Smallest data item   : %.2f\n\n",output[1]); //data_smallest);
 	printf("Mean                 : %.2f\n\n",output[2]); //data_mean);
@@ -204,17 +204,17 @@ void enterdata(float data[], int *count1){
 	if(count2 > 0){
 		
 		printf("Do you wish to add new data to existing sample? (Y/N)? ");
-		scanf("%c",&ynchoice);
-		/*
+		//scanf("%c",&ynchoice);
+		
 		ynchoice = getchar();
 		getchar();
-		*/
+		
 		
 		//Choose yes you start from the previous counter.	
 		if (ynchoice == 'y'|| ynchoice == 'Y'){
 			printf("\n\nEnter in your data starting at Item %d:",count2);
 			for(i = count2 ; i < MAX; i++){
-				printf("Item %d of %d: ",i,MAX);
+				printf("Item %d of %d: ",i+1,MAX);
 				scanf("%f",&data[i]);
 				count2 = i;
 			}		
@@ -224,11 +224,10 @@ void enterdata(float data[], int *count1){
 			count2 = 0;
 			printf("\n\nEnter in your data starting at Item 1:\n\n\n\n");
 			for(i = count2 ; i < MAX; i++){
-				printf("Item %d of %d: ",i,MAX);
+				printf("Item %d of %d: ",i+1,MAX);
 				scanf("%f",&data[i]);
-				
-			}
-			
+				}
+			count2 = i;
 		}	
 			
 	}		
@@ -240,8 +239,11 @@ void enterdata(float data[], int *count1){
 			printf("Item %d of %d: ",i+1,MAX);
 			scanf("%f",&data[i]);
 			count2 = i;
-		}
+			}
+		count2 = i;
 	}
+	
+	
 	*count1 = count2;			
 }
 
