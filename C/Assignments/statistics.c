@@ -49,11 +49,8 @@ void menu(float data[], float output[], int *count1);
 //int displaymenu(int *count);
 //Data entry function
 void enterdata(float data[],int *count1);
-//Prcoessing Data Functions
+//Prcoessing & Display Data 
 void processdata(float data[], float output[], int *count1);
-//Display data
-void displaydata(float data[], float output[], int *count1);
-void func_printdata(float data[], int *count2);	
 
 
 int main(){
@@ -72,8 +69,7 @@ int main(){
 void menu(float data[], float output[], int *count){
 	
 	int count1 = *count;
-	int choice;
-	//char choice;
+	char choice;
 	
 	do{
 		printf("*------------------------------------------------------------*\n");
@@ -93,32 +89,9 @@ void menu(float data[], float output[], int *count){
 		printf("*                                                            *\n");
 		printf("*------------------------------------------------------------*\n\n");
 		printf("Your Choice? ");
-		scanf("%d",&choice);
-		
-		
-		switch(choice){
-			case 1:
-				enterdata(data, &count1);
-				break;
-			case 2:
-				processdata(data, output, &count1);
-				displaydata(data, output, &count1);
-				break;
-			case 3:
-				printf("Have a nice day!!!\n\n\n\n\n");
-				break;
-			default: 
-				printf("Not a Valid Option \n\n\n");
-				break;	
-		}
-	}while(choice != 3);
-		
-		
-		/*
 		choice = getchar();
 		getchar();
 		
-		printf("\n\n\n");
 		
 		switch(choice){
 			case '1':
@@ -126,7 +99,6 @@ void menu(float data[], float output[], int *count){
 				break;
 			case '2':
 				processdata(data, output, &count1);
-				displaydata(data, output, &count1);
 				break;
 			case '3':
 				printf("Have a nice day!!!\n\n\n\n\n");
@@ -135,131 +107,68 @@ void menu(float data[], float output[], int *count){
 				printf("Not a Valid Option \n\n\n");
 				break;	
 		}
-	}while(choice !=('3'));
-			*/
-}
+	}while(choice != '3');
+		
 
-/*int displaymenu(int *count1){
-	
-	int count2 = *count1; 
-	int choice;
-	
-	printf("*------------------------------------------------------------*\n");
-	printf("|    Mini Stats Package                Data Entries = %3d    |\n",count2+1);
-	printf("*------------------------------------------------------------*\n");
-	printf("*                                                            *\n");
-	printf("*    Enter the following number to:                          *\n");
-	printf("*                                                            *\n");
-	printf("*    1. Enter Data.                                          *\n");
-	printf("*                                                            *\n");
-	printf("*    2. Display the data and the following statistics:       *\n");
-	printf("*       the number of data items, the high and low values    *\n");
-	printf("*       in the data[], the mean, the median, mode,           *\n");
-	printf("*       variance and the standard deviation.                 *\n");
-	printf("*                                                            *\n");
-	printf("*    3. Quit Program                                         *\n");
-	printf("*                                                            *\n");
-	printf("*------------------------------------------------------------*\n\n");
-	printf("Your Choice? ");
-	getchar()("%d",&choice);
-	printf("\n\n\n");
-	
-	return choice;		
-}
-*/
-
-void displaydata(float data[], float output[], int *count1){
-	
-	int count2 = *count1;
-	
-	printf("*------------------------------------------------------------*\n");
-	printf("    Mini Stats Package                                       |\n");
-	printf("*------------------------------------------------------------*\n");
-	printf("Data Items:\n\n");
-	func_printdata(data, &count2);
-	printf("\n\n");
-	printf("Number of data items : %d\n\n",count2);//data_item_number);
-	printf("Largest data item    : %.2f\n\n",output[0]); //data_largest);
-	printf("Smallest data item   : %.2f\n\n",output[1]); //data_smallest);
-	printf("Mean                 : %.2f\n\n",output[2]); //data_mean);
-	printf("Median               : %.2f\n\n",output[3]); //data_median);
-	printf("Mode                 : %.2f\n\n",output[4]); //data_mode);
-	printf("Variance             : %.2f\n\n",output[5]); //data_variance);
-	printf("Standard Deviation   : %.2f\n\n",output[6]); //data_standard_deviation);
-	printf("*------------------------------------------------------------*\n\n\n\n");
-	
-	
 }
 
 void enterdata(float data[], int *count1){
 	
-	int count2 = *count1;
-	int i;
-	int j;
+	int count2 = *count1; 
+	int i = count2;
 	
-	char ynchoice;
+	char choice;
 	
 	
 	//If data already exists either add more to it or start fresh
-	if(count2 > 0){
+	if(i > 0){
 		
 		printf("Do you wish to add new data to existing sample? (Y/N)? ");
 		//scanf("%c",&ynchoice);
 		
-		ynchoice = getchar();
+		choice = getchar();
 		getchar();
 		
 		
-		//Choose yes you start from the previous counter.	
-		if (ynchoice == 'y'|| ynchoice == 'Y'){
-			printf("\n\nEnter in your data starting at Item %d:",count2);
-			for(i = count2 ; i < MAX; i++){
+		//Choose yes you start from the previous counter.	CHANGE TO A WHILE LOOP INSTEAD ASK IN CLASS
+		if (choice == 'y'|| choice == 'Y'){
+			printf("\n\nEnter in your data starting at Item %d:\n",i+1);
+			
+			printf("Item %d of %d: ",i+1,MAX);
+			while(scanf("%f",&data[i]) != EOF){
+				i++;
 				printf("Item %d of %d: ",i+1,MAX);
-				scanf("%f",&data[i]);
-				count2 = i;
-			}		
+			}
 		}
 		//Choose anything else you start from counter of 0
 		else{
-			count2 = 0;
-			printf("\n\nEnter in your data starting at Item 1:\n\n\n\n");
-			for(i = count2 ; i < MAX; i++){
+			i = 0;
+			printf("\n\nEnter in your data starting at Item %d:\n",i+1);
+			printf("Item %d of %d: ",i+1,MAX);
+			while(scanf("%f",&data[i]) !=EOF){
+				i++;
 				printf("Item %d of %d: ",i+1,MAX);
-				scanf("%f",&data[i]);
-				}
-			count2 = i;
-		}	
-			
+			}
+		}			
 	}		
 	//If the counter is empty already and there was no data
 	else{
-		count2 = 0;
-		printf("Enter in your data starting at Item 1:\n\n\n\n");
-		for(i = count2 ; i < MAX; i++){
+		i = 0;
+		printf("\n\nEnter in your data starting at Item %d:\n",i+1);
+		printf("Item %d of %d: ",i+1,MAX);
+		while(scanf("%f",&data[i]) !=EOF){
+			i++;
 			printf("Item %d of %d: ",i+1,MAX);
-			scanf("%f",&data[i]);
-			count2 = i;
-			}
-		count2 = i;
+		}
 	}
-	
-	
-	*count1 = count2;			
+count2 = i;				
+*count1 = count2;
 }
-
-void func_printdata(float data[], int *count2){
-	
-	int count3 = *count2;
-	int i;
-	for(i=0 ; i < 10 ; i++){
-		printf("%.2f ",data[i]);
-	}
-}
-	
 
 void processdata ( float data[], float output[], int *count1){
 	
 	int count2 = *count1;
+	int i;
 	
 	float largestnum;
 	float smallestnum = 8.0;
@@ -293,4 +202,23 @@ void processdata ( float data[], float output[], int *count1){
 	
 	//Data Standard Deviation
     output[6] = stddev;
+	
+	printf("*------------------------------------------------------------*\n");
+	printf("    Mini Stats Package                                       |\n");
+	printf("*------------------------------------------------------------*\n");
+	printf("Data Items:\n\n");
+	for(i=0 ; i < count2 ; i++){ /// ASK IN CLASS 
+		printf("%.2f ",data[i]);
+	}
+	printf("\n\n");
+	printf("Number of data items : %d\n\n",count2);//data_item_number);
+	printf("Largest data item    : %.2f\n\n",output[0]); //data_largest);
+	printf("Smallest data item   : %.2f\n\n",output[1]); //data_smallest);
+	printf("Mean                 : %.2f\n\n",output[2]); //data_mean);
+	printf("Median               : %.2f\n\n",output[3]); //data_median);
+	printf("Mode                 : %.2f\n\n",output[4]); //data_mode);
+	printf("Variance             : %.2f\n\n",output[5]); //data_variance);
+	printf("Standard Deviation   : %.2f\n\n",output[6]); //data_standard_deviation);
+	printf("*------------------------------------------------------------*\n\n\n\n");
+	*count1 = count2;
 }
