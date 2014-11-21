@@ -46,7 +46,6 @@ or create a new entry.
 
 //menu functions
 void menu(float data[], float output[], int *count1);
-//int displaymenu(int *count);
 //Data entry function
 void enterdata(float data[],int *count1);
 //Prcoessing & Display Data 
