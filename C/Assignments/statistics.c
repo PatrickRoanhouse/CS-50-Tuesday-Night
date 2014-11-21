@@ -42,7 +42,7 @@ or create a new entry.
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
-#define MAX 10
+#define MAX 200
 
 //menu functions
 void menu(float data[], float output[], int *count1);
@@ -51,7 +51,9 @@ void menu(float data[], float output[], int *count1);
 void enterdata(float data[],int *count1);
 //Prcoessing & Display Data 
 void processdata(float data[], float output[], int *count1);
-
+float max(float data[],int *count2);
+float min(float data[],int *count2);
+void avg_var_stddev(float data[], float output[], int *count2, float *var, float *stddev, float *avg);
 
 int main(){
 	float data[MAX];
@@ -72,7 +74,9 @@ void menu(float data[], float output[], int *count){
 	char choice;
 	
 	do{
-		printf("*------------------------------------------------------------*\n");
+		//while ( getchar() != '\n' );
+		fseek(stdin,0,SEEK_END);
+		printf("\n\n\n\n*------------------------------------------------------------*\n");
 		printf("|    Mini Stats Package                Data Entries = %3d    |\n",count1);
 		printf("*------------------------------------------------------------*\n");
 		printf("*                                                            *\n");
@@ -132,10 +136,10 @@ void enterdata(float data[], int *count1){
 		
 		//Choose yes you start from the previous counter.	CHANGE TO A WHILE LOOP INSTEAD ASK IN CLASS
 		if (choice == 'y'|| choice == 'Y'){
-			printf("\n\nEnter in your data starting at Item %d:\n",i+1);
+			printf("\n\nEnter in your data starting at Item %d:\n Quit Entry by entering the letter 'q' and pressing enter\n\n\n",i+1);
 			
 			printf("Item %d of %d: ",i+1,MAX);
-			while(scanf("%f",&data[i]) != EOF){
+			while(scanf("%f",&data[i]) !=0){
 				i++;
 				printf("Item %d of %d: ",i+1,MAX);
 			}
@@ -143,9 +147,9 @@ void enterdata(float data[], int *count1){
 		//Choose anything else you start from counter of 0
 		else{
 			i = 0;
-			printf("\n\nEnter in your data starting at Item %d:\n",i+1);
+			printf("\n\nEnter in your data starting at Item %d:\n Quit Entry by entering the letter 'q' and pressing enter\n\n\n",i+1);
 			printf("Item %d of %d: ",i+1,MAX);
-			while(scanf("%f",&data[i]) !=EOF){
+			while(scanf("%f",&data[i]) !=0){
 				i++;
 				printf("Item %d of %d: ",i+1,MAX);
 			}
@@ -154,9 +158,9 @@ void enterdata(float data[], int *count1){
 	//If the counter is empty already and there was no data
 	else{
 		i = 0;
-		printf("\n\nEnter in your data starting at Item %d:\n",i+1);
+		printf("\n\nEnter in your data starting at Item %d:\n Quit Entry by entering the letter 'q' and pressing enter\n\n\n",i+1);
 		printf("Item %d of %d: ",i+1,MAX);
-		while(scanf("%f",&data[i]) !=EOF){
+		while(scanf("%f",&data[i]) !=0){
 			i++;
 			printf("Item %d of %d: ",i+1,MAX);
 		}
@@ -165,40 +169,38 @@ count2 = i;
 *count1 = count2;
 }
 
-void processdata ( float data[], float output[], int *count1){
+void processdata ( float data[], float output[], int *count1) {
 	
 	int count2 = *count1;
 	int i;
 	
-	float largestnum;
-	float smallestnum = 8.0;
-	float mean = 9.0;
-	float median = 10.0;
-	float mode = 11.0;
-	float variance = 12.0;
-	float stddev = 13.0;
-	
-	//Data Largest Number
-	largestnum = 2 + 10;
-		
-	output[0] = largestnum;
+	float avg = 0;
+	float median = 0;
+	float var = 0;
+	float stddev = 0; 
 
-	//Data Smallest Number
-    smallestnum = 10+2;
+	float maxx = max(data,&count2);
+	float minn = min(data,&count2);
 	
-	output[1] = smallestnum;
+	avg_var_stddev(data,output,&count2,&var,&stddev,&avg);
 	
-	//Data Mean
-	output[2] = mean;
+	//Data Largest Number Maximum
+	output[0] = max;
+
+	//Data Smallest Number Minimum
+	output[1] = min;
 	
-	//Data Median
-	output[3] = median;
+	//Data Mean Average
+	output[2] = avg;
 	
-	//Data Mode
-	output[4] = mode;
+	//Data Median - Middle number
+	output[3] = 0; //median(data,&count2); // YOU NEED TO DO THESE TWO
+	
+	//Data Mode - most repeatted number/s
+	output[4] = 0; // YOU NEED TO DO THESE TWO
 	
 	//Data Variance
-	output[5] = variance;
+	output[5] = var;
 	
 	//Data Standard Deviation
     output[6] = stddev;
@@ -206,8 +208,9 @@ void processdata ( float data[], float output[], int *count1){
 	printf("*------------------------------------------------------------*\n");
 	printf("    Mini Stats Package                                       |\n");
 	printf("*------------------------------------------------------------*\n");
-	printf("Data Items:\n\n");
-	for(i=0 ; i < count2 ; i++){ /// ASK IN CLASS 
+	printf("Data Items:\n");
+	for(i=0 ; i < count2 ; i++)
+	{
 		printf("%.2f ",data[i]);
 	}
 	printf("\n\n");
@@ -219,6 +222,55 @@ void processdata ( float data[], float output[], int *count1){
 	printf("Mode                 : %.2f\n\n",output[4]); //data_mode);
 	printf("Variance             : %.2f\n\n",output[5]); //data_variance);
 	printf("Standard Deviation   : %.2f\n\n",output[6]); //data_standard_deviation);
-	printf("*------------------------------------------------------------*\n\n\n\n");
+	printf("*------------------------------------------------------------*\n\n");
 	*count1 = count2;
+}
+
+float max(float data[],int *count2)
+{
+	int i;
+	float max=-300000000.00;
+	
+	for (i=0; i<=*count2; i++){
+		 if (data[i]>max){
+		    max=data[i];
+		 }
+	}
+	return(max);
+}
+
+float min(float data[],int *count2)
+{
+	int i;
+	int location = 1;
+	float min = data[0];
+	for ( i = 0 ; i < *count2 ; i++ )
+	{
+		if ( data[i] < min )
+		{
+	    	min = data[i];
+	        location = i+1;
+	    }
+	} 
+	return(min);
+}
+
+void avg_var_stddev(float data[], float output[], int *count2, float *var, float *stddev, float *avg)
+{
+	int i;
+
+	float sum = 0, sum1 = 0;
+	
+	for(i = 0; i < *count2; i++)
+	{
+		sum += data[i];
+	}
+	*avg = sum / (float)*count2;
+
+	for(i = 0 ; i < *count2 ; i++)
+	{
+		sum1 = sum1 + pow((data[i]-output[2]),2);
+	}
+	*var = sum1 / (float)*count2;
+	*stddev = sqrt(*var);
 }
