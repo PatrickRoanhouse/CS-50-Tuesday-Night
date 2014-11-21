@@ -76,22 +76,24 @@ void menu(float data[], float output[], int *count){
 	do{
 		//while ( getchar() != '\n' );
 		fseek(stdin,0,SEEK_END);
-		printf("\n\n\n\n*------------------------------------------------------------*\n");
-		printf("|    Mini Stats Package                Data Entries = %3d    |\n",count1);
-		printf("*------------------------------------------------------------*\n");
-		printf("*                                                            *\n");
-		printf("*    Enter the following number to:                          *\n");
-		printf("*                                                            *\n");
-		printf("*    1. Enter Data.                                          *\n");
-		printf("*                                                            *\n");
-		printf("*    2. Display the data and the following statistics:       *\n");
-		printf("*       the number of data items, the high and low values    *\n");
-		printf("*       in the data[], the mean, the median, mode,           *\n");
-		printf("*       variance and the standard deviation.                 *\n");
-		printf("*                                                            *\n");
-		printf("*    3. Quit Program                                         *\n");
-		printf("*                                                            *\n");
-		printf("*------------------------------------------------------------*\n\n");
+		printf("\n\n");
+		printf("*---------------------------------------------------------------------*\n");
+		printf("|            Patrick Roanhouse's  Mini Stats Package 2014 Edition     |\n");
+		printf("*---------------------------------------------------------------------*\n");
+		printf("*                                                                     *\n");
+		printf("*       Menu Options                                                  *\n");
+		printf("*                                                                     *\n");
+		printf("*       [1]. Enter Data.  - Enter up to 200 entries!                  *\n");
+		printf("*                                                                     *\n");
+		printf("*       [2]. Display Data - Displays formated table of raw data!      *\n");
+		printf("*                           The current data entry count!             *\n");
+		printf("*                           and the statical information:             *\n");
+		printf("*                           maximum, minimum, mean, median, mode,     *\n");
+		printf("*                           variance, and standard deviation.         *\n");
+		printf("*                                                                     *\n");
+		printf("*       [3]. Quit Program                                             *\n");
+		printf("*                                                                     *\n");
+		printf("*---------------------------------------------------------------------*\n\n");
 		printf("Your Choice? ");
 		choice = getchar();
 		getchar();
@@ -205,13 +207,17 @@ void processdata ( float data[], float output[], int *count1) {
 	//Data Standard Deviation
     output[6] = stddev;
 	
-	printf("*------------------------------------------------------------*\n");
-	printf("    Mini Stats Package                                       |\n");
-	printf("*------------------------------------------------------------*\n");
-	printf("Data Items:\n");
+	printf("*---------------------------------------------------------------------*\n");
+	printf("|   Mini Stats Package                                                |\n");
+	printf("*---------------------------------------------------------------------*\n");
+	printf("Data Items:\n\n");
 	for(i=0 ; i < count2 ; i++)
 	{
-		printf("%.2f ",data[i]);
+		printf("%12.2f ",data[i]);
+	    if ((i+1)%5 == 0)
+	       {
+	           printf("\n\n");
+	       }
 	}
 	printf("\n\n");
 	printf("Number of data items : %d\n\n",count2);//data_item_number);
@@ -222,7 +228,7 @@ void processdata ( float data[], float output[], int *count1) {
 	printf("Mode                 : %.2f\n\n",output[4]); //data_mode);
 	printf("Variance             : %.2f\n\n",output[5]); //data_variance);
 	printf("Standard Deviation   : %.2f\n\n",output[6]); //data_standard_deviation);
-	printf("*------------------------------------------------------------*\n\n");
+	printf("*---------------------------------------------------------------------*\n\n");
 	*count1 = count2;
 }
 
@@ -263,13 +269,13 @@ void avg_var_stddev(float data[], float output[], int *count2, float *var, float
 	
 	for(i = 0; i < *count2; i++)
 	{
-		sum += data[i];
+		sum = sum + data[i];
 	}
 	*avg = sum / (float)*count2;
 
 	for(i = 0 ; i < *count2 ; i++)
 	{
-		sum1 = sum1 + pow((data[i]-output[2]),2);
+		sum1 = sum1 + pow((data[i]-*avg),2);
 	}
 	*var = sum1 / (float)*count2;
 	*stddev = sqrt(*var);
