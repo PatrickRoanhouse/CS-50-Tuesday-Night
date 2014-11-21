@@ -185,10 +185,10 @@ void processdata ( float data[], float output[], int *count1) {
 	avg_var_stddev(data,output,&count2,&var,&stddev,&avg);
 	
 	//Data Largest Number Maximum
-	output[0] = max;
+	output[0] = maxx;
 
 	//Data Smallest Number Minimum
-	output[1] = min;
+	output[1] = minn;
 	
 	//Data Mean Average
 	output[2] = avg;
