@@ -6,8 +6,6 @@ Section: 4135
 
 Tuesday Night 6:45
 
-Phone: 410-929-2008
-
 Email: Roanhouse_Patrick_m@student.smc.edu
 
 Write a menu-driven mini-statistics package. 
@@ -52,7 +50,9 @@ void enterdata(float data[],int *count1);
 void processdata(float data[], float output[], int *count1);
 float max(float data[],int *count2);
 float min(float data[],int *count2);
-void avg_var_stddev(float data[], float output[], int *count2, float *var, float *stddev, float *avg);
+float median(float data[],int *count2);
+float mode(float data[], int *count2);
+void avg_var_stddev(float data[], float output[], int *count2, float *var, float *stddev, float *meanv);
 
 int main(){
 	float data[MAX];
@@ -175,30 +175,30 @@ void processdata ( float data[], float output[], int *count1) {
 	int count2 = *count1;
 	int i;
 	
-	float avg = 0;
-	float median = 0;
+	float meanv = 0;
+	
 	float var = 0;
 	float stddev = 0; 
-
-	float maxx = max(data,&count2);
-	float minn = min(data,&count2);
-	
-	avg_var_stddev(data,output,&count2,&var,&stddev,&avg);
+	float medianv = median(data,&count2);
+	float maximumv = max(data,&count2);
+	float minimumv = min(data,&count2);
+	float modev = mode(data,&count2);
+	avg_var_stddev(data,output,&count2,&var,&stddev,&meanv);
 	
 	//Data Largest Number Maximum
-	output[0] = maxx;
+	output[0] = maximumv;
 
 	//Data Smallest Number Minimum
-	output[1] = minn;
+	output[1] = minimumv;
 	
 	//Data Mean Average
-	output[2] = avg;
+	output[2] = meanv;
 	
 	//Data Median - Middle number
-	output[3] = 0; //median(data,&count2); // YOU NEED TO DO THESE TWO
+	output[3] = medianv; //median(data,&count2); // YOU NEED TO DO THESE TWO
 	
 	//Data Mode - most repeatted number/s
-	output[4] = 0; // YOU NEED TO DO THESE TWO
+	output[4] = modev; // YOU NEED TO DO THESE TWO
 	
 	//Data Variance
 	output[5] = var;
@@ -260,7 +260,43 @@ float min(float data[],int *count2)
 	return(min);
 }
 
-void avg_var_stddev(float data[], float output[], int *count2, float *var, float *stddev, float *avg)
+/* FIX THIS I'M STUPID HOW DO I DO THIS */
+float median(float data[],int *count2)
+{
+	float median = 0;
+	
+	return median;
+}
+
+float mode(float data[], int *count2)
+{
+	int tallymode = 1;
+    int i;
+    int tally = 1;
+    int num = data[0];
+    int mode = num;
+
+    for ( i=0; i<*count2; i++)
+    {
+        if (data[i] == num) 
+        {
+            tally++;
+        }
+        else
+        {
+            if (tally > tallymode) 
+            {
+                tallymode = tally;
+                mode = num;
+            }
+            tally = 1;
+            num = data[i];
+        }
+    }
+    return mode;
+}
+
+void avg_var_stddev(float data[], float output[], int *count2, float *var, float *stddev, float *meanv)
 {
 	int i;
 
@@ -270,11 +306,11 @@ void avg_var_stddev(float data[], float output[], int *count2, float *var, float
 	{
 		sum = sum + data[i];
 	}
-	*avg = sum / (float)*count2;
+	*meanv= sum / (float)*count2;
 
 	for(i = 0 ; i < *count2 ; i++)
 	{
-		sum1 = sum1 + pow((data[i]-*avg),2);
+		sum1 = sum1 + pow((data[i]-*meanv),2);
 	}
 	*var = sum1 / (float)*count2;
 	*stddev = sqrt(*var);
