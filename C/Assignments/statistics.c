@@ -307,7 +307,6 @@ void bubblesort(float data2[], int *count3)
 
 float mode(float data[], int *count2)
 {
-<<<<<<< Local Changes
 	int count3 = *count2;
 	float mode;
 	float data2[200];
@@ -318,9 +317,6 @@ float mode(float data[], int *count2)
 	
 	
 	
-=======
-	float mode = 0;
->>>>>>> External Changes
     return mode;
 }
 
