@@ -318,7 +318,7 @@ float mode(float data[], int *count2)
 	
 	bubblesort(data2,&count3);
 	
-	
+	//hmmm
 	
     return mode;
 }
