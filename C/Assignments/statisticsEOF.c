@@ -51,6 +51,7 @@ void processdata(float data[], float output[], int *count1);
 float maxv(float data[],int *count2);
 float minv(float data[],int *count2);
 float median(float data[],int *count2);
+void bubblesort(float data2[],int *count3);
 float mode(float data[], int *count2);
 void avg_var_stddev(float data[], int *count2, float *var, float *stddev, float *meanv);
 
@@ -79,7 +80,7 @@ void menu(float data[], float output[], int *count){
 		printf("*---------------------------------------------------------------------*\n");
 		printf("|            Patrick Roanhouse's  Mini Stats Package 2014 Edition     |\n");
 		printf("*---------------------------------------------------------------------*\n");
-		printf("*                   I NOW RUN ON BOTH UNIX  WINDOWS                  *\n");
+		printf("*                       I NOW RUN ONLY ON WINDOWS :`(                 *\n");
 		printf("*       Menu Options                                                  *\n");
 		printf("*                                                                     *\n");
 		printf("*       [1]. Enter Data.  - Enter up to 200 entries!                  *\n");
@@ -264,66 +265,52 @@ float minv(float data[],int *count2)
 /* FIX THIS I'M STUPID HOW DO I DO THIS */
 float median(float data[],int *count2)
 {
+	int count3 = *count2;
+	
 	float data2[200];
-	int count3;
 	float median;
-	int i,j;
-	float a;
 	
-	memcpy(data2, data, sizeof(*count2));
+	memcpy(data2, data, 200);
 	
-	for (i = 0; i < *count2 ; ++i)
+	bubblesort(data2,&count3);
+	
+	if (count3 % 2)
 	{
-		for (j = i + 1; j < *count2; ++j)
-	    {
-	    	if (data2[i] > data2[j])
-	        	{
-	                a =  data2[i];
-	                data2[i] = data2[j];
-	                data2[j] = a;
-	        	}
-	    }
+		median = data2[count3/2];
 	}
-	if (*count2%2)
+	else 
 	{
-		count3 = ((*count2 - 1)/2) + 1;
-		mode = data2[count3];
-			
+		median = (data2[(count3-1)/2]+data2[((count3+1)/2)])/2;
 	}
-	else
-	{
-		count3 = *count2/2;
-		mode = (data2[count3] + data2[count3+1])/2;
-	}
+	
 	
 	return median;
 }
 
+void bubblesort(float data2[], int *count3) 
+{    
+	int passes=*count3-1;
+	int i,j,temp;
+	
+	for(i=1;i<=passes;i++){
+		
+		for(j=0;j<passes;j++)
+		{
+			
+			if(data2[j]>data2[j+1])
+			{
+			
+				temp=data2[j+1];
+				data2[j+1]=data2[j];
+				data2[j]=temp;
+			}
+		}
+	}
+}
+	
 float mode(float data[], int *count2)
 {
-	int tallymode = 1;
-    int i;
-    int tally = 1;
-    int num = data[0];
-    int mode = num;
-
-    for ( i=0; i<*count2; i++)
-    {
-        if (data[i] == num) 
-        {
-            tally++;
-        }
-        else
-        {
-            if (tally > tallymode) 
-            {
-                tallymode = tally;
-                mode = num;
-            }
-            tally = 1;
-            num = data[i];
-        }
-    }
+	float mode = 0;
     return mode;
 }
 

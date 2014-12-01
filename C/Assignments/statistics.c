@@ -48,13 +48,15 @@ void menu(float data[], float output[], int *count1);
 void enterdata(float data[],int *count1);
 //Prcoessing & Display Data 
 void processdata(float data[], float output[], int *count1);
-float max(float data[],int *count2);
-float min(float data[],int *count2);
+float maxf(float data[],int *count2);
+float minf(float data[],int *count2);
 float median(float data[],int *count2);
+void bubblesort(float data2[], int *count3);
 float mode(float data[], int *count2);
-void avg_var_stddev(float data[], float output[], int *count2, float *var, float *stddev, float *meanv);
-
-int main(){
+void avg_var_stddev(float data[], int *count2, float *var, float *stddev, float *meanv);
+	
+int main()
+{
 	float data[MAX];
 	float output[7];
 	int count = 0;
@@ -79,7 +81,7 @@ void menu(float data[], float output[], int *count){
 		printf("*---------------------------------------------------------------------*\n");
 		printf("|            Patrick Roanhouse's  Mini Stats Package 2014 Edition     |\n");
 		printf("*---------------------------------------------------------------------*\n");
-		printf("*                                                                     *\n");
+		printf("*                      I NOW RUN ON BOTH UNIX & WINDOWS               *\n");
 		printf("*       Menu Options                                                  *\n");
 		printf("*                                                                     *\n");
 		printf("*       [1]. Enter Data.  - Enter up to 200 entries!                  *\n");
@@ -180,10 +182,10 @@ void processdata ( float data[], float output[], int *count1) {
 	float var = 0;
 	float stddev = 0; 
 	float medianv = median(data,&count2);
-	float maximumv = max(data,&count2);
-	float minimumv = min(data,&count2);
+	float maximumv = maxf(data,&count2);
+	float minimumv = minf(data,&count2);
 	float modev = mode(data,&count2);
-	avg_var_stddev(data,output,&count2,&var,&stddev,&meanv);
+	avg_var_stddev(data,&count2,&var,&stddev,&meanv);
 	
 	//Data Largest Number Maximum
 	output[0] = maximumv;
@@ -231,7 +233,7 @@ void processdata ( float data[], float output[], int *count1) {
 	*count1 = count2;
 }
 
-float max(float data[],int *count2)
+float maxf(float data[],int *count2)
 {
 	int i;
 	float max=-300000000.00;
@@ -244,17 +246,15 @@ float max(float data[],int *count2)
 	return(max);
 }
 
-float min(float data[],int *count2)
+float minf(float data[],int *count2)
 {
 	int i;
-	int location = 1;
 	float min = data[0];
 	for ( i = 0 ; i < *count2 ; i++ )
 	{
 		if ( data[i] < min )
 		{
 	    	min = data[i];
-	        location = i+1;
 	    }
 	} 
 	return(min);
@@ -263,40 +263,55 @@ float min(float data[],int *count2)
 /* FIX THIS I'M STUPID HOW DO I DO THIS */
 float median(float data[],int *count2)
 {
-	float median = 0;
+	int count3 = *count2;
+	
+	float data2[200];
+	float median;
+	
+	memcpy(data2, data, 200);
+	
+	bubblesort(data2,&count3);
+	
+	if (count3 % 2)
+	{
+		median = data2[count3/2];
+	}
+	else 
+	{
+		median = (data2[(count3-1)/2]+data2[((count3+1)/2)])/2;
+	}
 	
 	return median;
 }
 
+void bubblesort(float data2[], int *count3) 
+{    
+	int passes=*count3-1;
+	int i,j,temp;
+	
+	for(i=1;i<=passes;i++){
+		
+		for(j=0;j<passes;j++)
+		{
+			
+			if(data2[j]>data2[j+1])
+			{
+			
+				temp=data2[j+1];
+				data2[j+1]=data2[j];
+				data2[j]=temp;
+			}
+		}
+	}
+}
+
 float mode(float data[], int *count2)
 {
-	int tallymode = 1;
-    int i;
-    int tally = 1;
-    int num = data[0];
-    int mode = num;
-
-    for ( i=0; i<*count2; i++)
-    {
-        if (data[i] == num) 
-        {
-            tally++;
-        }
-        else
-        {
-            if (tally > tallymode) 
-            {
-                tallymode = tally;
-                mode = num;
-            }
-            tally = 1;
-            num = data[i];
-        }
-    }
+	float mode = 0;
     return mode;
 }
 
-void avg_var_stddev(float data[], float output[], int *count2, float *var, float *stddev, float *meanv)
+void avg_var_stddev(float data[], int *count2, float *var, float *stddev, float *meanv)
 {
 	int i;
 

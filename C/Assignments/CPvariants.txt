@@ -1,0 +1,7 @@
+CP.c object code size Analysis
+
+the orginal cp.c with the usage of getc() and putc() for copying a file has an object code size of 1,036 bytes.
+the first variant of cp.c that used fgetc() and fputc() for copying a file has an object code size of 1,004 bytes.
+the second variant of cp.c that used fgets() and fputs() for copying a file has an object code size of 1,044 bytes.
+the third variant of cp.c that used fread() and fwrite() for copying a file has an object code size of 1,029 bytes.
+the fourth variant of cp.c that used fscanf() and fprintf() for copying a file an object code size of 1,028 bytes.
