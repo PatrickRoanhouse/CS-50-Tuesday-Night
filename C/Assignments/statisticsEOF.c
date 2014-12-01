@@ -80,7 +80,7 @@ void menu(float data[], float output[], int *count){
 		printf("*---------------------------------------------------------------------*\n");
 		printf("|            Patrick Roanhouse's  Mini Stats Package 2014 Edition     |\n");
 		printf("*---------------------------------------------------------------------*\n");
-		printf("*                       I NOW RUN ONLY ON WINDOWS :`(                 *\n");
+		printf("*                       I RUN ONLY ON WINDOWS :`(                     *\n");
 		printf("*       Menu Options                                                  *\n");
 		printf("*                                                                     *\n");
 		printf("*       [1]. Enter Data.  - Enter up to 200 entries!                  *\n");
@@ -310,7 +310,16 @@ void bubblesort(float data2[], int *count3)
 	
 float mode(float data[], int *count2)
 {
-	float mode = 0;
+	int count3 = *count2;
+	float mode;
+	float data2[200];
+	
+	memcpy(data2, data, 200);
+	
+	bubblesort(data2,&count3);
+	
+	
+	
     return mode;
 }
 

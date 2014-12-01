@@ -307,7 +307,14 @@ void bubblesort(float data2[], int *count3)
 
 float mode(float data[], int *count2)
 {
-	float mode = 0;
+	count3 = *count2;
+	float mode;
+	float data2[200];
+	
+	memcpy(data2, data, 200);
+	
+	bubblesort(data2,&count3);
+	
     return mode;
 }
 

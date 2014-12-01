@@ -35,6 +35,11 @@ int main (void)
     char num2[1024];
     int i=0;
     char* sum = NULL;
+    int i1=strlen(num1);    
+    int i2=strlen(num2);    
+    int length;
+    int temp =0;
+    int tens =0;
 
     printf("Enter the first number\n");
     gets(num1);
@@ -42,9 +47,7 @@ int main (void)
     gets(num2);
     /*printf("\nThe numbers you entered are \n%s\n and \n%s\n", num1, num2);*/
     
-    int i1=strlen(num1);    
-    int i2=strlen(num2);    
-    int length;
+    
     
     if (i1>=i2)
         length = i1;
@@ -57,8 +60,7 @@ int main (void)
     sum[length+2]='\0';
     sum[0]=0;
     
-    int temp =0;
-    int tens =0;
+    
     
     for (i=length+1; i>0; )
     {
