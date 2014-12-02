@@ -53,6 +53,7 @@ float minv(float data[],int *count2);
 float median(float data[],int *count2);
 void bubblesort(float data2[],int *count3);
 float mode(float data[], int *count2);
+float findfrequentindex(float b[]);
 void avg_var_stddev(float data[], int *count2, float *var, float *stddev, float *meanv);
 
 int main(){
@@ -311,16 +312,46 @@ void bubblesort(float data2[], int *count3)
 float mode(float data[], int *count2)
 {
 	int count3 = *count2;
+	int i;
 	float mode;
 	float data2[200];
+	float frequency[10]={0};
 	
 	memcpy(data2, data, 200);
 	
 	bubblesort(data2,&count3);
 	
+	for(i=0;i<count3;i++)
+	{
+			frequency[ (int)data2[i] ]++;
+	}
+	
+	mode = findfrequentindex(frequency);
 	//hmmm
 	
     return mode;
+}
+
+
+
+float findfrequentindex(float b[])
+{			
+	
+	int mostFrequent=b[0],i;
+	float rating;
+	
+		for(i=1;i<10;i++)
+		{
+	
+			if(b[i]>mostFrequent)
+			{
+				mostFrequent=b[i];         
+				rating=i;			
+			}
+		}
+	
+		return rating;
+		
 }
 
 void avg_var_stddev(float data[], int *count2, float *var, float *stddev, float *meanv)
