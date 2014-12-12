@@ -284,7 +284,6 @@ float median(float data[],int *count2)
 		median = (data2[(count3-1)/2]+data2[((count3+1)/2)])/2;
 	}
 	
-	
 	return median;
 }
 
@@ -308,11 +307,11 @@ void bubblesort(float data2[], int *count3)
 		}
 	}
 }
-	
+
 float mode(float data[], int *count2)
 {
 	int count3 = *count2;
-	int i;
+	float i;
 	float mode;
 	float data2[200];
 	float frequency[10]={0};
@@ -323,11 +322,10 @@ float mode(float data[], int *count2)
 	
 	for(i=0;i<count3;i++)
 	{
-			frequency[ (int)data2[i] ]++;
+			frequency[ data2[i] ]++;
 	}
 	
 	mode = findfrequentindex(frequency);
-	//hmmm
 	
     return mode;
 }
@@ -337,7 +335,7 @@ float mode(float data[], int *count2)
 float findfrequentindex(float b[])
 {			
 	
-	int mostFrequent=b[0],i;
+	float mostFrequent=b[0],i;
 	float rating;
 	
 		for(i=1;i<10;i++)

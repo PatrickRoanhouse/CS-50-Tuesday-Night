@@ -100,8 +100,11 @@ void parse_bn( bigNum_t * _val, char * _str )
 	int sections = (size-1)/9;
 	int end = size;
 	int begin = 0;
+	int digit;
+	int section;
+	int value = 0;
 
-	for(int section=0; section<=sections; ++section)
+	for( section=0; section<=sections; ++section)
 	{
 		if( end >= 9 ) 
 		{
@@ -111,8 +114,8 @@ void parse_bn( bigNum_t * _val, char * _str )
 		{
 			begin = 0;
 		}
-		int value = 0;
-		for( int digit=begin; digit < end; ++digit ) 
+		
+		for( digit=begin; digit < end; ++digit ) 
 		{
 			value *= 10;
 			value += (_str[digit]-'0');
@@ -140,11 +143,12 @@ int main(void)
 {
 	bigNum_t num1;
 	bigNum_t num2;
+	char * strNum1[1024]; //= "888888888888888888888888888888888888888888888888888888888888888888888888";
+	char * strNum2[1024]; //=   "1999999999999999999999999999999999999999999996667766999999";
 	init(&num1);
 	init(&num2);
 
-	char * strNum1[1024]; //= "888888888888888888888888888888888888888888888888888888888888888888888888";
-	char * strNum2[1024]; //=   "1999999999999999999999999999999999999999999996667766999999";
+	
 	
 	printf("Enter the first number\n");
 	gets(strNum1);

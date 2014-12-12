@@ -198,10 +198,10 @@ void processdata ( float data[], float output[], int *count1) {
 	output[2] = meanv;
 	
 	//Data Median - Middle number
-	output[3] = medianv; //median(data,&count2); // YOU NEED TO DO THESE TWO
+	output[3] = medianv; 
 	
 	//Data Mode - most repeatted number/s
-	output[4] = modev; // YOU NEED TO DO THESE TWO
+	output[4] = modev; 
 	
 	//Data Variance
 	output[5] = var;
@@ -288,7 +288,7 @@ float median(float data[],int *count2)
 void bubblesort(float data2[], int *count3) 
 {    
 	int passes=*count3-1;
-	int i,j,temp;
+	float i,j,temp;
 	
 	for(i=1;i<=passes;i++){
 		
@@ -309,7 +309,7 @@ void bubblesort(float data2[], int *count3)
 float mode(float data[], int *count2)
 {
 	int count3 = *count2;
-	int i;
+	float i;
 	float mode;
 	float data2[200];
 	float frequency[10]={0};
@@ -320,11 +320,10 @@ float mode(float data[], int *count2)
 	
 	for(i=0;i<count3;i++)
 	{
-			frequency[ (int)data2[i] ]++;
+			frequency[ data2[i] ]++;
 	}
 	
 	mode = findfrequentindex(frequency);
-	//hmmm
 	
     return mode;
 }
